@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {
+  StyledNavbar, StyledNavBrand, StyledNavItems, StyledLink,
+} from '../../styled/Navbar';
+import { Accent } from '../../styled/Random';
 
 const Navbar = () => {
   const links = [
@@ -12,21 +15,23 @@ const Navbar = () => {
     htmlLinks = links.map((item, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <li key={`li-${index}`}>
-        <Link to={item.link} className="nav-link">{item.name}</Link>
+        <StyledLink to={item.link} className="nav-link">{item.name}</StyledLink>
       </li>
     ));
   }
 
   return (
-    <nav>
-      <div>
-        <Link to="/">
+    <StyledNavbar>
+      <StyledNavBrand>
+        <StyledLink to="/">
           Learn.Build.
-          <span>Type.</span>
-        </Link>
-      </div>
-      <ul>{htmlLinks}</ul>
-    </nav>
+          <Accent>Type.</Accent>
+        </StyledLink>
+      </StyledNavBrand>
+      <StyledNavItems>
+        {htmlLinks}
+      </StyledNavItems>
+    </StyledNavbar>
   );
 };
 
