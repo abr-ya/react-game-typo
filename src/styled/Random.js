@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 
-// eslint-disable-next-line import/prefer-default-export
 export const Accent = styled.span`
   color: #e16365;
+`;
+
+export const StyledH1 = styled.h1`
+  font-size: 4rem;
+  text-align: center;
+  margin: 2rem 0;
+`;
+
+export const Strong = styled.strong`
+  font-weight: bold;
 `;
