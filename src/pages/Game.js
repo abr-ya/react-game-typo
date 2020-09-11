@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   StyledGame, StyledScore, StyledTimer, StyledCharacter,
 } from '../styled/Game';
 import { Strong } from '../styled/Random';
 
 const Game = ({ history }) => {
+  const MAX_SECONDS = 10;
+  const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const [currentCharacter, setCurrentCharacter] = useState('-');
   const [score, setScore] = useState(0);
-  const MAX_SECONDS = 5;
   const [ms, setMs] = useState(0);
   const [seconds, setSeconds] = useState(MAX_SECONDS);
 
@@ -30,7 +32,13 @@ const Game = ({ history }) => {
     setMs(addLeadingZeros(upMs, 3));
   };
 
+  const getRandomCharacter = (line) => {
+    const randomInt = Math.floor(Math.random() * line.length);
+    return line[randomInt];
+  };
+
   useEffect(() => {
+    setCurrentCharacter(getRandomCharacter(characters));
     const currentTime = new Date();
     const interval = setInterval(() => updateTime(currentTime), 1);
     return () => clearInterval(interval);
@@ -43,16 +51,24 @@ const Game = ({ history }) => {
     }
   }, [seconds, ms, history]);
 
-  const keyUpHandler = (e) => {
-    console.log(e.key);
-  };
+  const keyUpHandler = useCallback((e) => {
+    if (e.key === currentCharacter) {
+      setScore((prevScore) => prevScore + 1);
+    } else {
+      // eslint-disable-next-line no-lonely-if
+      if (score > 0) {
+        setScore((prevScore) => prevScore - 1);
+      }
+    }
+    setCurrentCharacter(getRandomCharacter(characters));
+  }, [currentCharacter]);
 
   useEffect(() => {
     document.addEventListener('keyup', keyUpHandler);
     return () => {
       document.removeEventListener('keyup', keyUpHandler);
     };
-  }, []);
+  }, [keyUpHandler]);
 
   return (
     <StyledGame>
@@ -62,7 +78,7 @@ const Game = ({ history }) => {
           {score}
         </Strong>
       </StyledScore>
-      <StyledCharacter>A</StyledCharacter>
+      <StyledCharacter>{currentCharacter}</StyledCharacter>
       <StyledTimer>
         Time:
         <Strong>
