@@ -22,16 +22,20 @@ const Game = ({ history }) => {
     return (zeros + num).slice(-length);
   };
 
-  const updateTime = (startTime) => {
-    const endTime = new Date();
-    const msStr = (endTime.getTime() - startTime.getTime()).toString();
-    // 00000 - first 2 are the seconds, last 3 are the ms
-    const formattedMsStr = (`0000${msStr}`).slice(-5);
-    const upSec = MAX_SECONDS - parseInt(formattedMsStr.substring(0, 2), 10) - 1;
-    const upMs = 1000 - parseInt(formattedMsStr.substring(formattedMsStr.length - 3), 10);
-    setSeconds(addLeadingZeros(upSec, 2));
-    setMs(addLeadingZeros(upMs, 3));
-  };
+  // fix
+  const updateTime = useCallback(
+    (startTime) => {
+      const endTime = new Date();
+      const msStr = (endTime.getTime() - startTime.getTime()).toString();
+      // 00000 - first 2 are the seconds, last 3 are the ms
+      const formattedMsStr = (`0000${msStr}`).slice(-5);
+      const upSec = MAX_SECONDS - parseInt(formattedMsStr.substring(0, 2), 10) - 1;
+      const upMs = 1000 - parseInt(formattedMsStr.substring(formattedMsStr.length - 3), 10);
+      setSeconds(addLeadingZeros(upSec, 2));
+      setMs(addLeadingZeros(upMs, 3));
+    },
+    [],
+  );
 
   const getRandomCharacter = (line) => {
     const randomInt = Math.floor(Math.random() * line.length);
@@ -45,7 +49,7 @@ const Game = ({ history }) => {
     const currentTime = new Date();
     const interval = setInterval(() => updateTime(currentTime), 1);
     return () => clearInterval(interval);
-  }, []);
+  }, [setScore, updateTime]); // fix
 
   useEffect(() => {
     if (seconds <= -1) { // seconds <= 0 && ms <= 100
@@ -63,7 +67,7 @@ const Game = ({ history }) => {
       }
     }
     setCurrentCharacter(getRandomCharacter(characters));
-  }, [currentCharacter]);
+  }, [currentCharacter, setScore, score]); // fix setScore, score
 
   useEffect(() => {
     document.addEventListener('keyup', keyUpHandler);

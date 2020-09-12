@@ -5,7 +5,7 @@ import { StyledLink } from '../styled/Navbar';
 const GameOver = ({ history }) => {
   const [score] = useScore();
   console.log(`Game Over, ${score} scores`);
-  console.log(history);
+  // console.log(history);
 
   if (score === -1) {
     console.log('очков нет - переходим на главную');
@@ -15,7 +15,7 @@ const GameOver = ({ history }) => {
   return (
     <div>
       <h1>Game Over</h1>
-      <p>{score}</p>
+      <p>{`Ваш результат: ${score}`}</p>
       <StyledLink to="/">Go Home</StyledLink>
       <StyledLink to="/game">Play Again</StyledLink>
     </div>
