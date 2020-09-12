@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { WithScore } from './contexts/ScoreContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <WithScore>
+      <App />
+    </WithScore>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

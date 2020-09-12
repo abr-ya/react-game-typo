@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useScore } from '../contexts/ScoreContext';
 import {
   StyledGame, StyledScore, StyledTimer, StyledCharacter,
 } from '../styled/Game';
@@ -8,7 +9,7 @@ const Game = ({ history }) => {
   const MAX_SECONDS = 10;
   const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
   const [currentCharacter, setCurrentCharacter] = useState('-');
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useScore();
   const [ms, setMs] = useState(0);
   const [seconds, setSeconds] = useState(MAX_SECONDS);
 
@@ -37,8 +38,10 @@ const Game = ({ history }) => {
     return line[randomInt];
   };
 
+  // начало игры
   useEffect(() => {
     setCurrentCharacter(getRandomCharacter(characters));
+    setScore(0);
     const currentTime = new Date();
     const interval = setInterval(() => updateTime(currentTime), 1);
     return () => clearInterval(interval);
@@ -46,7 +49,6 @@ const Game = ({ history }) => {
 
   useEffect(() => {
     if (seconds <= -1) { // seconds <= 0 && ms <= 100
-      console.log('game over!');
       history.push('/gameover');
     }
   }, [seconds, ms, history]);
@@ -74,16 +76,12 @@ const Game = ({ history }) => {
     <StyledGame>
       <StyledScore>
         Score:
-        <Strong>
-          {score}
-        </Strong>
+        <Strong>{` ${score}`}</Strong>
       </StyledScore>
       <StyledCharacter>{currentCharacter}</StyledCharacter>
       <StyledTimer>
         Time:
-        <Strong>
-          {`${seconds}:${ms}`}
-        </Strong>
+        <Strong>{`${seconds}:${ms}`}</Strong>
       </StyledTimer>
     </StyledGame>
   );
