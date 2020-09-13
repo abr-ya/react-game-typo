@@ -1,10 +1,4 @@
-const Airtable = require('airtable');
-
-Airtable.configure({
-  apiKey: process.env.REACT_APP_API_KEY,
-});
-const base = Airtable.base(process.env.REACT_APP_AIR_BASE);
-const table = base.table(process.env.REACT_APP_AIR_TABLE);
+const { table, getHighScores } = require('./utils/airtable');
 
 exports.handler = async (event) => {
   // console.log(event.httpMethod);
@@ -23,17 +17,9 @@ exports.handler = async (event) => {
     };
   }
   try {
-    const records = await table
-      .select({
-        sort: [{ field: 'score', direction: 'desc' }],
-      })
-      .firstPage();
-    const formattedRecords = records.map((record) => ({
-      id: record.id,
-      fields: record.fields,
-    }));
+    const records = await getHighScores(false);
     // the lowest record is at index 9
-    const lowestRecord = formattedRecords[9];
+    const lowestRecord = records[9];
     console.log(lowestRecord);
     // update if score === ind || score more than 10th string score
     if (typeof lowestRecord.fields.score === 'undefined'
