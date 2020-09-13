@@ -1,16 +1,19 @@
 const Airtable = require('airtable');
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-
 Airtable.configure({
-  apiKey: API_KEY,
+  apiKey: process.env.REACT_APP_API_KEY,
 });
-const base = Airtable.base('app2GrBiQmriPa7UE');
-const table = base.table('Table1');
+const base = Airtable.base(process.env.REACT_APP_AIR_BASE);
+const table = base.table(process.env.REACT_APP_AIR_TABLE);
 
-exports.handler = async (event) => {
+exports.handler = async () => {
   try {
-    const records = await table.select({}).firstPage();
+    const records = await table
+      .select({
+        filterByFormula: 'AND(name != "",score > 0)',
+        sort: [{ field: 'score', direction: 'desc' }],
+      })
+      .firstPage();
     const formattedRecords = records.map((record) => ({
       id: record.id,
       fields: record.fields,
