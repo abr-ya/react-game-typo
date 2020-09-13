@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ScoresList, ScoreItem } from '../styled/HighScores';
+import { StyledH1 } from '../styled/Random';
 
 const HighScores = () => {
   // call getHighcores function
   const [highScores, setHighScores] = useState([]);
-  //const []
 
   useEffect(() => {
     console.log('getting HighScores');
@@ -22,7 +22,7 @@ const HighScores = () => {
 
   return (
     <div>
-      <h1>HighScores</h1>
+      <StyledH1>HighScores</StyledH1>
       <ScoresList>
         {highScores.map((score) => (
           <ScoreItem key={score.id}>{`${score.fields.name} - ${score.fields.score}`}</ScoreItem>

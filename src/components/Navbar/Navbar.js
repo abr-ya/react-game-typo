@@ -24,7 +24,7 @@ const Navbar = () => {
     <StyledNavbar>
       <StyledNavBrand>
         <StyledLink to="/">
-          Learn.Build.
+          Nav.Logo.
           <Accent>Type.</Accent>
         </StyledLink>
       </StyledNavBrand>
