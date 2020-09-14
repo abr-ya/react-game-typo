@@ -1,0 +1,11 @@
+import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const LoginButton = () => {
+  const { loginWithRedirect } = useAuth0();
+
+  // eslint-disable-next-line react/button-has-type
+  return <button onClick={() => loginWithRedirect()}>Log In</button>;
+};
+
+export default LoginButton;

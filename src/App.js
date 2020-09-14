@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import Navbar from './components/Navbar/Navbar';
 import Game from './pages/Game';
 import GameOver from './pages/GameOver';
@@ -9,21 +10,29 @@ import Global from './styled/Global';
 import Main from './styled/Main';
 import { Container } from './styled/Container';
 
-const App = () => (
-  <Router>
-    <Global />
-    <Main>
-      <Container>
-        <Navbar />
-        <Switch>
-          <Route path="/game" component={Game} />
-          <Route path="/highscores" component={HighScores} />
-          <Route path="/gameover" component={GameOver} />
-          <Route path="/" component={Home} />
-        </Switch>
-      </Container>
-    </Main>
-  </Router>
-);
+const App = () => {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <p>Auth loading...</p>;
+  }
+
+  return (
+    <Router>
+      <Global />
+      <Main>
+        <Container>
+          <Navbar />
+          <Switch>
+            <Route path="/game" component={Game} />
+            <Route path="/highscores" component={HighScores} />
+            <Route path="/gameover" component={GameOver} />
+            <Route path="/" component={Home} />
+          </Switch>
+        </Container>
+      </Main>
+    </Router>
+  );
+};
 
 export default App;

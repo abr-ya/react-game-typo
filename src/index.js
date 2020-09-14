@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { WithScore } from './contexts/ScoreContext';
+import AuthProvider from './AuthProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <WithScore>
-      <App />
-    </WithScore>
+    <AuthProvider>
+      <WithScore>
+        <App />
+      </WithScore>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

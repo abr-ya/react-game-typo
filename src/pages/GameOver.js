@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { useScore } from '../contexts/ScoreContext';
 import { StyledLink } from '../styled/Navbar';
 import { StyledCharacter } from '../styled/Game';
 import { StyledH1 } from '../styled/Random';
 
 const GameOver = ({ history }) => {
+  const { user } = useAuth0();
+  const [name] = useState(user['https://name'] || user.nickname || 'Anonymus'); // temp
   const [score] = useScore();
-  const [name] = useState('Anonymus'); // temp
   const [scoreMessage, setScoreMessage] = useState('if you got more than 0 points, sending...');
   // console.log(`Game Over, ${score} scores`);
   // console.log(history);
