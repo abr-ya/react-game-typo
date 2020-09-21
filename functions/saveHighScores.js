@@ -1,7 +1,15 @@
 const { table, getHighScores } = require('./utils/airtable');
+const { getTokenFromHeaders } = require('./utils/auth');
 
 exports.handler = async (event) => {
-  // console.log(event.httpMethod);
+  const token = getTokenFromHeaders(event.headers);
+  if (!token) {
+    return {
+      statusCode: 401,
+      body: JSON.stringify({ err: 'No token in headers' }),
+    };
+  }
+
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,

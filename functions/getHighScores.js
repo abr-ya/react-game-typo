@@ -1,6 +1,7 @@
 const { getHighScores } = require('./utils/airtable');
 
 exports.handler = async () => {
+  // console.log(event.headers);
   try {
     const records = await getHighScores(true);
     return ({

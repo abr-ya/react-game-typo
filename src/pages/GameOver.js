@@ -6,10 +6,11 @@ import { StyledCharacter } from '../styled/Game';
 import { StyledH1 } from '../styled/Random';
 
 const GameOver = ({ history }) => {
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [name] = useState(user['https://name'] || user.nickname || 'Anonymus'); // temp
   const [score] = useScore();
   const [scoreMessage, setScoreMessage] = useState('if you got more than 0 points, sending...');
+  const [NotLoginMessage] = useState('You should log in or sign up to compete for highScores!');
   // console.log(`Game Over, ${score} scores`);
   // console.log(history);
 
@@ -21,9 +22,13 @@ const GameOver = ({ history }) => {
   useEffect(() => {
     const saveHighScore = async () => {
       try {
+        const token = await getAccessTokenSilently();
         const options = {
           method: 'POST',
           body: JSON.stringify({ name, score }),
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
         const res = await fetch('/.netlify/functions/saveHighScores', options);
         const data = await res.json();
@@ -39,15 +44,15 @@ const GameOver = ({ history }) => {
         console.log(err);
       }
     };
-    if (score > 0) saveHighScore();
-  }, [score, name]);
+    if (isAuthenticated && score > 0) saveHighScore();
+  }, [score, name, getAccessTokenSilently, isAuthenticated]);
 
   return (
     <div>
       <StyledH1>Game Over</StyledH1>
       <p>Your result is: </p>
       <StyledCharacter>{score}</StyledCharacter>
-      <h2>{scoreMessage}</h2>
+      <h2>{isAuthenticated ? scoreMessage : NotLoginMessage}</h2>
       <hr />
       <StyledLink to="/">Go Home</StyledLink>
       <hr />

@@ -6,6 +6,7 @@ const AuthProvider = ({ children }) => (
     domain="react-game-typo.eu.auth0.com"
     clientId="2Lf1ubeZHElEpgJAS6nvf4kEUSq8Aiov"
     redirectUri={window.location.origin}
+    audience="https://rgt/"
   >
     { children }
   </Auth0Provider>
