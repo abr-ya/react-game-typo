@@ -1,12 +1,13 @@
 const { table, getHighScores } = require('./utils/airtable');
-const { getTokenFromHeaders } = require('./utils/auth');
+const { getTokenFromHeaders, validateToken } = require('./utils/auth');
 
 exports.handler = async (event) => {
   const token = getTokenFromHeaders(event.headers);
-  if (!token) {
+  const user = await validateToken(token);
+  if (!user) {
     return {
       statusCode: 401,
-      body: JSON.stringify({ err: 'No token in headers' }),
+      body: JSON.stringify({ err: 'Unauthorized' }),
     };
   }
 
@@ -58,5 +59,4 @@ exports.handler = async (event) => {
       }),
     });
   }
-
 };
