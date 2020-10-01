@@ -13,23 +13,23 @@ import { Container } from './styled/Container';
 const App = () => {
   const { isLoading } = useAuth0();
 
-  if (isLoading) {
-    return <p>Auth loading...</p>;
-  }
-
   return (
     <Router>
       <Global />
       <Main>
-        <Container>
-          <Navbar />
-          <Switch>
-            <Route path="/game" component={Game} />
-            <Route path="/highscores" component={HighScores} />
-            <Route path="/gameover" component={GameOver} />
-            <Route path="/" component={Home} />
-          </Switch>
-        </Container>
+        {!isLoading ? (
+          <Container>
+            <Navbar />
+            <Switch>
+              <Route path="/game" component={Game} />
+              <Route path="/highscores" component={HighScores} />
+              <Route path="/gameover" component={GameOver} />
+              <Route path="/" component={Home} />
+            </Switch>
+          </Container>
+        ) : (
+          <p>Auth loading...</p>
+        )}
       </Main>
     </Router>
   );
