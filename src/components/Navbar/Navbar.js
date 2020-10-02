@@ -2,12 +2,13 @@ import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from '../LoginButton/LoginButton';
 import LogoutButton from '../LogoutButton/LogoutButton';
+import ThemeButton from '../ThemeButton/ThemeButton';
 import {
   StyledNavbar, StyledNavBrand, StyledNavItems, StyledLink,
 } from '../../styled/Navbar';
 import { Accent } from '../../styled/Random';
 
-const Navbar = () => {
+const Navbar = ({ toggleTheme }) => {
   const { isAuthenticated, user } = useAuth0();
   console.log(isAuthenticated, user);
   const links = [
@@ -36,6 +37,7 @@ const Navbar = () => {
       <StyledNavItems>
         {htmlLinks}
         { !isAuthenticated ? <LoginButton /> : <LogoutButton /> }
+        <ThemeButton toggleTheme={toggleTheme} />
       </StyledNavItems>
     </StyledNavbar>
   );
