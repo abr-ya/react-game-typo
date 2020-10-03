@@ -1,9 +1,10 @@
 import React from 'react';
+import StyledButton from '../../styled/Button';
 
 const ThemeButton = ({ toggleTheme }) => (
-  <button type="button" onClick={toggleTheme}>
+  <StyledButton type="button" onClick={toggleTheme}>
     ToggleTheme
-  </button>
+  </StyledButton>
 );
 
 export default ThemeButton;

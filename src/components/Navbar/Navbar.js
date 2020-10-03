@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from '../LoginButton/LoginButton';
-import LogoutButton from '../LogoutButton/LogoutButton';
 import ThemeButton from '../ThemeButton/ThemeButton';
 import {
   StyledNavbar, StyledNavBrand, StyledNavItems, StyledLink,
@@ -36,7 +35,7 @@ const Navbar = ({ toggleTheme }) => {
       </StyledNavBrand>
       <StyledNavItems>
         {htmlLinks}
-        { !isAuthenticated ? <LoginButton /> : <LogoutButton /> }
+        <LoginButton />
         <ThemeButton toggleTheme={toggleTheme} />
       </StyledNavItems>
     </StyledNavbar>

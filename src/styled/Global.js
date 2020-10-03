@@ -1,9 +1,17 @@
 import { createGlobalStyle } from 'styled-components';
 
+// --main-text-color: ${(props) => props.theme.mainTextColor};
+// --main-bg-color: ${(props) => props.theme.mainBgColor};
 export default createGlobalStyle`
-  :root {
-    --main-bg-color: ${(props) => props.theme.mainBgColor};
-    --main-text-color: ${(props) => props.theme.mainTextColor};
+  :root { 
+    --main-text-h: ${(props) => props.theme.mainTextH};
+    --main-text-s: ${(props) => props.theme.mainTextS};
+    --main-text-l: ${(props) => props.theme.mainTextL};
+    --main-bg-l: ${(props) => props.theme.mainBgL};
+    --main-bg-l-hover: ${(props) => props.theme.mainBgLHover};
+    --main-text-color: hsl(var(--main-text-h), var(--main-text-s), var(--main-text-l));
+    --main-bg-color: hsl(var(--main-text-h), var(--main-text-s), var(--main-bg-l));
+    --main-bg-color-hover: hsl(var(--main-text-h), var(--main-text-s), var(--main-bg-l-hover));
     --accent-color: ${(props) => props.theme.accentColor};
   }
   *{

@@ -12,12 +12,13 @@ import Main from './styled/Main';
 import { Container } from './styled/Container';
 import { lightTheme, darkTheme } from './styled/Themes';
 import useTheme from './hooks/UseTheme';
+import StyledLoader from './styled/Loader';
 
 const App = () => {
   const { isLoading } = useAuth0();
 
   const [theme, toggleTheme] = useTheme();
-  console.log(theme);
+  // console.log(theme);
   const currentTheme = theme === 'light' ? lightTheme : darkTheme;
 
   return (
@@ -36,7 +37,7 @@ const App = () => {
               </Switch>
             </Container>
           ) : (
-            <p>Auth loading...</p>
+            <StyledLoader><p>Auth loading...</p></StyledLoader>
           )}
         </Main>
       </ThemeProvider>
