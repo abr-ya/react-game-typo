@@ -13,6 +13,7 @@ const Navbar = ({ toggleTheme }) => {
   const links = [
     { link: '/', name: 'Home' },
     { link: '/highscores', name: 'HighScores' },
+    { link: '/about', name: 'About' },
   ];
 
   let htmlLinks = [];

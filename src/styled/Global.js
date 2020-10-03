@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
+// first version:
 // --main-text-color: ${(props) => props.theme.mainTextColor};
 // --main-bg-color: ${(props) => props.theme.mainBgColor};
 export default createGlobalStyle`

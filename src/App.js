@@ -7,6 +7,7 @@ import Game from './pages/Game';
 import GameOver from './pages/GameOver';
 import HighScores from './pages/HighScores';
 import Home from './pages/Home';
+import About from './pages/About';
 import Global from './styled/Global';
 import Main from './styled/Main';
 import { Container } from './styled/Container';
@@ -32,6 +33,7 @@ const App = () => {
               <Switch>
                 <Route path="/game" component={Game} />
                 <Route path="/highscores" component={HighScores} />
+                <Route path="/about" component={About} />
                 <Route path="/gameover" component={GameOver} />
                 <Route path="/" component={Home} />
               </Switch>
