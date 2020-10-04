@@ -27,8 +27,8 @@ const Navbar = ({ toggleTheme }) => {
     <StyledNavbar>
       <StyledNavBrand>
         <StyledLink to="/">
-          Logo.Typo.
-          <Accent>Game</Accent>
+          Game.Typo.
+          <Accent>Logo</Accent>
         </StyledLink>
       </StyledNavBrand>
       <StyledNavItems>
