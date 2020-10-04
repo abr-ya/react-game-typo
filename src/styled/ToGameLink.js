@@ -6,6 +6,7 @@ export default styled(Link)`
   text-align: center;
   display: block;
   text-decoration: none;
+  margin-bottom: 50px;
 
   &:hover {
     text-decoration: underline;

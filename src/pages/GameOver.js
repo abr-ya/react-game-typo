@@ -32,8 +32,7 @@ const GameOver = ({ history }) => {
         };
         const res = await fetch('/.netlify/functions/saveHighScores', options);
         const data = await res.json();
-        // eslint-disable-next-line no-console
-        console.log('server answer: ', data);
+        // console.log('server answer: ', data);
         if (data.id) {
           setScoreMessage('Congrats! You got a HighScore!');
         } else {

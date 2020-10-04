@@ -25,6 +25,10 @@ export const StyledA = styled.a`
   }
 `;
 
+export const StLi = styled.li`
+  margin: 5px 0;
+`;
+
 export const Strong = styled.strong`
   font-weight: bold;
 `;

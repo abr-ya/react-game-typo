@@ -58,16 +58,20 @@ const Game = ({ history }) => {
   }, [seconds, ms, history]);
 
   const keyUpHandler = useCallback((e) => {
-    if (e.key === currentCharacter) {
-      setScore((prevScore) => prevScore + 1);
+    if (e.key === 'Escape') {
+      history.push('/gameover');
     } else {
-      // eslint-disable-next-line no-lonely-if
-      if (score > 0) {
-        setScore((prevScore) => prevScore - 1);
+      if (e.key === currentCharacter) {
+        setScore((prevScore) => prevScore + 1);
+      } else {
+        // eslint-disable-next-line no-lonely-if
+        if (score > 0) {
+          setScore((prevScore) => prevScore - 1);
+        }
       }
+      setCurrentCharacter(getRandomCharacter(characters));
     }
-    setCurrentCharacter(getRandomCharacter(characters));
-  }, [currentCharacter, setScore, score]); // fix setScore, score
+  }, [currentCharacter, setScore, score, history]); // fix setScore, score, history
 
   useEffect(() => {
     document.addEventListener('keyup', keyUpHandler);
@@ -85,7 +89,7 @@ const Game = ({ history }) => {
       <StyledCharacter>{currentCharacter}</StyledCharacter>
       <StyledTimer>
         Time:
-        <Strong>{`${seconds}:${ms}`}</Strong>
+        <Strong>{` ${seconds}:${ms}`}</Strong>
       </StyledTimer>
     </StyledGame>
   );
